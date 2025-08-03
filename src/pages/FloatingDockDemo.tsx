@@ -55,8 +55,13 @@ export function FloatingDockDemo() {
       );
       const secondsFormatted = secondsSinceStartOfDay.toLocaleString('id-ID');
 
+      const tanggalSekarang = now.toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      });
       setUmur(
-        `${years} tahun, lebih ${months} bulan, ${days} hari, ${secondsFormatted} detik`
+        `${years} tahun, lebih ${months} bulan, ${days} hari, ${secondsFormatted} detik (per ${tanggalSekarang})`
       );
     };
 
