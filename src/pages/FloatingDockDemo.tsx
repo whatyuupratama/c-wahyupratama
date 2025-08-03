@@ -55,13 +55,8 @@ export function FloatingDockDemo() {
       );
       const secondsFormatted = secondsSinceStartOfDay.toLocaleString('id-ID');
 
-      const tanggalSekarang = now.toLocaleDateString('id-ID', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      });
       setUmur(
-        `${years} tahun, lebih ${months} bulan, ${days} hari, ${secondsFormatted} detik (per ${tanggalSekarang})`
+        `${years} tahun, lebih ${months} bulan, ${days} hari, ${secondsFormatted} detik`
       );
     };
 
@@ -135,9 +130,8 @@ export function FloatingDockDemo() {
           </div>
           <div className='text-start md:text-left text-base md:text-lg text-neutral-700 dark:text-neutral-200'>
             kalau ini pertama kali kamu baca tentang aku — hai, aku wahyu
-            pratama umur <strong>{umur}</strong>.. aku sudah di bidang tech
-            sejak juni 2024. di sini aku bakal banyak berbagi soal perjalanan
-            sebagai software developer (ts/py).
+            pratama <strong>{umur}</strong>. di sini aku bakal banyak berbagi
+            soal perjalanan sebagai software developer (ts/py).
             <br />
             <div className='flex items-center gap-1'>
               cheers, wahyu pratama <MdVerified color='#0095f6' />
