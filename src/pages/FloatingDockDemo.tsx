@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FloatingDock } from '../../src/compoenents/ui/floating-dock';
 import {
   IconBrandGithub,
@@ -9,6 +9,7 @@ import {
   IconBrandMedium,
 } from '@tabler/icons-react';
 import { MdVerified } from 'react-icons/md';
+import { BackgroundBeamsWithCollision } from '../compoenents/ui/background-beams-with-collision';
 
 export function FloatingDockDemo() {
   const [umur, setUmur] = useState('');
@@ -18,46 +19,29 @@ export function FloatingDockDemo() {
 
     const updateAge = () => {
       const now = new Date();
+      const years = now.getFullYear() - birthDate.getFullYear();
+      const months = now.getMonth() - birthDate.getMonth();
 
-      // Tahun dan bulan
-      let years = now.getFullYear() - birthDate.getFullYear();
-      let months = now.getMonth() - birthDate.getMonth();
+      // Hari = tanggal hari ini (misal 4 jika 4 Agustus)
+      const days = now.getDate();
 
-      // Hitung hari: selisih hari dari tanggal lahir bulan ini ke hari ini
-      let days;
-      if (now.getDate() >= birthDate.getDate()) {
-        days = now.getDate() - birthDate.getDate();
-      } else {
-        months -= 1;
-        // Ambil jumlah hari di bulan sebelumnya
-        const prevMonth = now.getMonth() - 1 < 0 ? 11 : now.getMonth() - 1;
-        const prevYear =
-          prevMonth === 11 ? now.getFullYear() - 1 : now.getFullYear();
-        const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
-        days = daysInPrevMonth - birthDate.getDate() + now.getDate();
+      // Selalu tampilkan bulan
+      const showMonth = true;
+
+      // Hitung jam, menit, detik sejak jam 00:00 hari ini
+      const nowHour = now.getHours();
+      const nowMinute = now.getMinutes();
+      const nowSecond = now.getSeconds();
+
+      // Format hasil
+      let result = `${years} tahun, lebih`;
+      if (showMonth && months > 0) {
+        result += ` ${months} bulan,`;
       }
-      if (months < 0) {
-        years -= 1;
-        months += 12;
-      }
+      result += ` ${days} hari,`;
+      result += ` ${nowHour} jam ${nowMinute} menit ${nowSecond} detik`;
 
-      // Hitung detik sisa sejak jam 00:00 hari ini
-      const startOfDay = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        0,
-        0,
-        0
-      );
-      const secondsSinceStartOfDay = Math.floor(
-        (now.getTime() - startOfDay.getTime()) / 1000
-      );
-      const secondsFormatted = secondsSinceStartOfDay.toLocaleString('id-ID');
-
-      setUmur(
-        `${years} tahun, lebih ${months} bulan, ${days} hari, ${secondsFormatted} detik`
-      );
+      setUmur(result);
     };
 
     updateAge();
@@ -117,29 +101,49 @@ export function FloatingDockDemo() {
       href: 'https://github.com/whatyuupratama',
     },
   ];
+  // Refs untuk elemen yang ingin dideteksi collision
+  const profileImgRef = useRef<HTMLImageElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+
   return (
-    <div className='flex items-center justify-center h-[45rem] w-full'>
-      <div className='flex flex-col items-center  w-max mx-auto'>
-        <div className='flex flex-col items-start justify-center gap-6  py-8 px-4 max-w-3xl'>
-          <div className='flex-shrink-0'>
-            <img
-              src='https://media.licdn.com/dms/image/v2/D4E03AQFjPuSC71XyHQ/profile-displayphoto-scale_400_400/B4EZgQuxGtHoAg-/0/1752627353908?e=1756944000&v=beta&t=b2hbQDzP2OaqD4YTPLgRPWCgO0AzLHkUvWtS4G6Ty9s'
-              alt='side'
-              className='w-22 h-22  rounded-full object-cover mx-auto shadow-lg'
-            />
-          </div>
-          <div className='text-start md:text-left text-base md:text-lg text-neutral-700 dark:text-neutral-200'>
-            kalau ini pertama kali kamu baca tentang aku — hai, aku wahyu
-            pratama <strong>{umur}</strong>. di sini aku bakal banyak berbagi
-            soal perjalanan sebagai software developer (ts/py).
-            <br />
-            <div className='flex items-center gap-1'>
-              cheers, wahyu pratama <MdVerified color='#0095f6' />
+    <BackgroundBeamsWithCollision
+      className='min-h-screen'
+      targetRefs={[
+        profileImgRef as unknown as React.RefObject<HTMLElement>,
+        textRef as unknown as React.RefObject<HTMLElement>,
+      ]}
+    >
+      <div className='flex items-center justify-center min-h-screen w-full'>
+        <div className='flex flex-col items-center  w-max mx-auto'>
+          <div className='flex flex-col items-start justify-center gap-6  py-8 px-4 max-w-3xl'>
+            <div className='flex-shrink-0'>
+              <img
+                ref={profileImgRef}
+                src='https://media.licdn.com/dms/image/v2/D4E03AQFjPuSC71XyHQ/profile-displayphoto-scale_400_400/B4EZgQuxGtHoAg-/0/1752627353908?e=1756944000&v=beta&t=b2hbQDzP2OaqD4YTPLgRPWCgO0AzLHkUvWtS4G6Ty9s'
+                alt='side'
+                className='w-22 h-22  rounded-full object-cover mx-auto shadow-xl'
+              />
+            </div>
+            <div
+              ref={textRef}
+              className='text-start md:text-left text-base md:text-lg text-neutral-700 dark:text-neutral-200'
+            >
+              kalau ini pertama kali kamu baca tentang aku — hai, aku wahyu
+              pratama{' '}
+              <strong style={{ color: '#0095f6', opacity: '80%' }}>
+                {umur}
+              </strong>
+              . this is a highlight from a journey as a software developer
+              ts/py.
+              <br />
+              <div className='flex items-center gap-1'>
+                cheers, wahyu pratama <MdVerified color='#0095f6' />
+              </div>
             </div>
           </div>
         </div>
+        <FloatingDock items={links} />
       </div>
-      <FloatingDock items={links} />
-    </div>
+    </BackgroundBeamsWithCollision>
   );
 }
