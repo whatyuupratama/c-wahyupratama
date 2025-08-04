@@ -17,6 +17,8 @@ export function FloatingDockDemo() {
   useEffect(() => {
     const birthDate = new Date('2004-07-03T00:00:00');
 
+    const pad2 = (n: number) => n.toString().padStart(2, '0');
+
     const updateAge = () => {
       const now = new Date();
       const years = now.getFullYear() - birthDate.getFullYear();
@@ -33,13 +35,15 @@ export function FloatingDockDemo() {
       const nowMinute = now.getMinutes();
       const nowSecond = now.getSeconds();
 
-      // Format hasil
+      // Format hasil dengan dua digit untuk jam, menit, detik
       let result = `${years} tahun, lebih`;
       if (showMonth && months > 0) {
-        result += ` ${months} bulan,`;
+        result += ` ${months} bulan, `;
       }
-      result += ` ${days} hari,`;
-      result += ` ${nowHour} jam ${nowMinute} menit ${nowSecond} detik`;
+      result += ` ${days} hari, `;
+      result += ` ${pad2(nowHour)} jam, ${pad2(nowMinute)} menit, ${pad2(
+        nowSecond
+      )} detik`;
 
       setUmur(result);
     };
@@ -130,14 +134,18 @@ export function FloatingDockDemo() {
             >
               kalau ini pertama kali kamu baca tentang aku — hai, aku wahyu
               pratama{' '}
-              <strong style={{ color: '#0095f6', opacity: '80%' }}>
-                {umur}
-              </strong>
-              . this is a highlight from a journey as a software developer
-              ts/py.
-              <br />
-              <div className='flex items-center gap-1'>
-                cheers, wahyu pratama <MdVerified color='#0095f6' />
+              <a className=' font-bold opacity-80 text-[#8D0B41]'> {umur}</a>.
+              journey of a software developer. ts/py.
+              <div className='mt-2'>
+                et, aku juga owner joki score turnitin, artikel ilmiah,
+                publikasi, web/app, dll. follow{' '}
+                <a className='underline decoration-pink-500'>
+                  @muakstudyterus.id
+                </a>{' '}
+                , semua dihandle worker gemastik, intern bca/dbs, msib, dll
+                <div className='flex items-center gap-1'>
+                  cheers, wahyu pratama <MdVerified color='#0095f6' />
+                </div>
               </div>
             </div>
           </div>
