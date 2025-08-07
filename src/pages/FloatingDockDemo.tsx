@@ -10,6 +10,7 @@ import {
 } from '@tabler/icons-react';
 import { MdVerified } from 'react-icons/md';
 import { BackgroundBeamsWithCollision } from '../compoenents/ui/background-beams-with-collision';
+import { IoLocationOutline } from 'react-icons/io5';
 
 export function FloatingDockDemo() {
   const [umur, setUmur] = useState('');
@@ -120,13 +121,25 @@ export function FloatingDockDemo() {
       <div className='flex items-center justify-center min-h-screen w-full'>
         <div className='flex flex-col items-center  w-max mx-auto'>
           <div className='flex flex-col items-start justify-center gap-6  py-8 px-4 max-w-3xl'>
-            <div className='flex-shrink-0'>
+            <div className='flex gap-2 items-center justify-center'>
               <img
                 ref={profileImgRef}
                 src='https://media.licdn.com/dms/image/v2/D4E03AQFjPuSC71XyHQ/profile-displayphoto-scale_400_400/B4EZgQuxGtHoAg-/0/1752627353908?e=1756944000&v=beta&t=b2hbQDzP2OaqD4YTPLgRPWCgO0AzLHkUvWtS4G6Ty9s'
                 alt='side'
                 className='w-22 h-22  rounded-full object-cover mx-auto shadow-xl'
               />
+
+              <span className='text-gray-500 opacity-45 flex items-center gap-2 text-sm flex-wrap max-w-xs sm:max-w-none break-words'>
+                <IoLocationOutline />
+                <span className='block sm:inline'>
+                  Pedanda, Pedongga, Pasangkayu,
+                  <span className='hidden sm:inline'> Sulawesi Barat</span>
+                  <span className='inline sm:hidden'>
+                    <br />
+                    Sulawesi Barat
+                  </span>
+                </span>
+              </span>
             </div>
             <div
               ref={textRef}
