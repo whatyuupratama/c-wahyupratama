@@ -121,6 +121,17 @@ export function FloatingDockDemo() {
       <div className='flex items-center justify-center min-h-screen w-full'>
         <div className='flex flex-col items-center  w-max mx-auto'>
           <div className='flex flex-col items-start justify-center gap-6  py-8 px-4 max-w-3xl'>
+            <span className='text-gray-500 opacity-45 flex items-center justify-end gap-2 text-sm flex-wrap max-w-xs sm:max-w-none break-words'>
+              <IoLocationOutline />
+              <span className='block sm:inline'>
+                Malang -
+                <span className='hidden sm:inline'> Sulawesi Barat</span>
+                <span className='inline sm:hidden'>
+                  <br />
+                  Sulawesi Barat
+                </span>
+              </span>
+            </span>
             <div className='flex gap-2 items-center justify-center'>
               <img
                 ref={profileImgRef}
@@ -128,18 +139,6 @@ export function FloatingDockDemo() {
                 alt='side'
                 className='w-22 h-22  rounded-full object-cover mx-auto shadow-xl'
               />
-
-              <span className='text-gray-500 opacity-45 flex items-center gap-2 text-sm flex-wrap max-w-xs sm:max-w-none break-words'>
-                <IoLocationOutline />
-                <span className='block sm:inline'>
-                  Pedanda, Pedongga, Pasangkayu,
-                  <span className='hidden sm:inline'> Sulawesi Barat</span>
-                  <span className='inline sm:hidden'>
-                    <br />
-                    Sulawesi Barat
-                  </span>
-                </span>
-              </span>
             </div>
             <div
               ref={textRef}
@@ -151,11 +150,16 @@ export function FloatingDockDemo() {
               journey of a software developer. ts/py.
               <div className='mt-2'>
                 et, aku juga owner joki score turnitin, artikel ilmiah,
-                publikasi, web/app, dll. follow{' '}
-                <a className='underline decoration-pink-500'>
-                  @muakstudyterus.id
+                publikasi, web/app, dll. klik
+                <a
+                  className='underline decoration-pink-500 cursor-pointer'
+                  href='https://www.instagram.com/muakstudyterus.id'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <br /> @muakstudyterus.id
                 </a>{' '}
-                , semua dihandle worker gemastik, intern bca/dbs, msib, dll
+                semua dihandle worker gemastik, intern bca/dbs, msib, dll
                 <div className='flex items-center gap-1'>
                   cheers, wahyu pratama <MdVerified color='#0095f6' />
                 </div>
